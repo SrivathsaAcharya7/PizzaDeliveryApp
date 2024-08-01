@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base,sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker, registry
 
-engine = create_engine("mysql+pymysql://root:root@localhost:3306/pizza_delivery")
-
-Base= declarative_base()
-Session= sessionmaker()
+mapper_registry = registry()
+Base = declarative_base()
+engine = create_engine("mysql+pymysql://root:root@localhost:3306/pizzadelivery", echo=True)
+Session = sessionmaker()
