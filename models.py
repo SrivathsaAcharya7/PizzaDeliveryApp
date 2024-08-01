@@ -5,6 +5,20 @@ from sqlalchemy_utils.types import ChoiceType
 from database import Base
 
 
+class User(Base):
+    __tablename__ = "user"
+    id = Column(Integer, primary_key=True)
+    username = Column(String(25), unique=True)
+    email = Column(String(80), unique=True)
+    password = Column(Text, nullable=True)
+    is_staff = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=False)
+    orders = relationship("Order", back_populates="user")
+
+    def __repr__(self):
+        return f"<User {self.username}>"
+
+
 class Order(Base):
     ORDER_STATUSES = (("PENDING", "pending"), ("IN-TRANSIT", "in-transit"), ("DELIVERED", "delivered"))
     PIZZA_SIZES = (("SMALL", "small"), ("MEDIUM", "medium"), ("LARGE", "large"), ("EXTRA-LARGE", "extra-large"))
@@ -19,17 +33,3 @@ class Order(Base):
 
     def __repr__(self):
         return f"<Order {self.id}>"
-
-
-class User(Base):
-    __tablename__ = "user"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(25), unique=True)
-    email = Column(String(80), unique=True)
-    password = Column(Text, nullable=True)
-    is_staff = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=False)
-    orders = relationship("Order", back_populates="user")
-
-    def __repr__(self):
-        return f"<User {self.username}>"
