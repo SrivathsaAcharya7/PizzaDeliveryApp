@@ -3,7 +3,7 @@ name: Deploy PizzaDeliveryApp
 on:
   push:
     branches:
-      - main  
+      - master  
 
 jobs:
   build:
